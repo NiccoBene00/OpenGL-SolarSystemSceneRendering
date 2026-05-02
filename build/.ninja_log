@@ -1,12 +1,11 @@
 # ninja log v7
-11	132	7989172754048851	CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj	220e42836d8ab6fc
-46	164	7989172754400986	CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj	d9f2548a40491c98
-57	657	7989172754505751	CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj	aef39a4dd68b7bf0
-4	1089	7989172753978742	CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj	6c640a5d8bc4d250
-27	1334	7989172754210947	CMakeFiles/SolarSystem.dir/src/glad.c.obj	3ae5e7d6010c7989
-18	1338	7989172754109484	CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj	f9465035d620744e
-29	6321	7989255136098292	CMakeFiles/SolarSystem.dir/src/main.cpp.obj	5d399ecbe3e160d
-67	1629	7989172754627475	CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj	e1fa1ba45b35b43a
-6322	6955	7989255199040770	SolarSystem.exe	467028399f400e21
-26	883	7989256952771352	CMakeFiles/SolarSystem.dir/src/main.cpp.obj	5d399ecbe3e160d
-884	1070	7989256961339106	SolarSystem.exe	467028399f400e21
+12	170	7994464226058004	CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj	220e42836d8ab6fc
+57	205	7994464226510587	CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj	d9f2548a40491c98
+82	814	7994464226750716	CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj	879a62e413e41732
+69	847	7994464226630768	CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj	aef39a4dd68b7bf0
+4	1146	7994464225982855	CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj	6c640a5d8bc4d250
+33	1463	7994464226265345	CMakeFiles/SolarSystem.dir/src/glad.c.obj	3ae5e7d6010c7989
+24	1512	7994464226175357	CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj	f9465035d620744e
+47	1739	7994464226403092	CMakeFiles/SolarSystem.dir/src/main.cpp.obj	5d399ecbe3e160d
+96	1833	7994464226900745	CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj	e1fa1ba45b35b43a
+1834	2144	7994464244269962	SolarSystem.exe	6e2a38b4d510c786

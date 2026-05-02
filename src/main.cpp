@@ -7,6 +7,7 @@
 #include "core/camera.h"
 #include "rendering/sphere.h"
 #include "utils/texture.h"
+#include "utils/cubemap.h"
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -82,12 +83,23 @@ int main()
     Shader screenShader("../shaders/quad.vert", "../shaders/quad.frag");
     Shader blurShader("../shaders/blur.vert", "../shaders/blur.frag");
     Shader finalShader("../shaders/quad.vert", "../shaders/bloom_final.frag");
+    Shader skyboxShader("../shaders/skybox.vert", "../shaders/skybox.frag");
 
     Sphere sphere;
 
     //TEXTURE LOADING
     unsigned int earthTexture = loadTexture("resources/textures/earth.jpg");
     unsigned int sunTexture = loadTexture("resources/textures/sun.jpg");
+    std::vector<std::string> faces = {
+        "resources/textures/skybox/right7.png",
+        "resources/textures/skybox/left7.png",
+        "resources/textures/skybox/top7.png",
+        "resources/textures/skybox/bottom7.png",
+        "resources/textures/skybox/front7.png",
+        "resources/textures/skybox/back7.png"
+    };
+
+    unsigned int cubemapTexture = loadCubemap(faces);
 
     // ============================
     // HDR FRAMEBUFFER
@@ -160,6 +172,63 @@ int main()
 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+    float skyboxVertices[] = {
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        -1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        -1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f
+    };
+
+    unsigned int skyboxVAO, skyboxVBO;
+
+    glGenVertexArrays(1, &skyboxVAO);
+    glGenBuffers(1, &skyboxVBO);
+
+    glBindVertexArray(skyboxVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
     
     unsigned int pingpongFBO[2];
     unsigned int pingpongColorbuffers[2];
@@ -252,6 +321,28 @@ int main()
             glBindTexture(GL_TEXTURE_2D, earthTexture);
             sphere.Draw();
         }
+
+        // =====================================================
+        // 🌌 DRAW SKYBOX (INSIDE HDR PASS)
+        // =====================================================
+        glDepthFunc(GL_LEQUAL); // importante
+
+        skyboxShader.use();
+
+        // rimuove la traslazione della camera
+        glm::mat4 viewSky = glm::mat4(glm::mat3(view));
+
+        skyboxShader.setMat4("view", viewSky);
+        skyboxShader.setMat4("projection", projection);
+
+        // bind cubemap
+        glBindVertexArray(skyboxVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        glDepthFunc(GL_LESS); // ripristina
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
