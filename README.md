@@ -118,7 +118,7 @@ Optional (future):
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/SolarSystem.git
+git clone https://github.com/NiccoBene00/SolarSystem.git
 cd SolarSystem
 ```
 
