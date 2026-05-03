@@ -93,6 +93,16 @@ build CMakeFiles/SolarSystem.dir/src/main.cpp.obj: CXX_COMPILER__SolarSystem_uns
   TARGET_PDB = SolarSystem.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
 
+build CMakeFiles/SolarSystem.dir/src/rendering/planet.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/rendering/planet.cpp || cmake_object_order_depends_target_SolarSystem
+  DEP_FILE = CMakeFiles\SolarSystem.dir\src\rendering\planet.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  OBJECT_DIR = CMakeFiles\SolarSystem.dir
+  OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\rendering
+  TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
+  TARGET_PDB = SolarSystem.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
+
 build CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/rendering/render.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\rendering\render.cpp.obj.d
   FLAGS = -std=gnu++17
@@ -141,7 +151,7 @@ build CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj: CXX_COMPILER__SolarS
 #############################################
 # Link the executable SolarSystem.exe
 
-build SolarSystem.exe: CXX_EXECUTABLE_LINKER__SolarSystem_ CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj CMakeFiles/SolarSystem.dir/src/glad.c.obj CMakeFiles/SolarSystem.dir/src/main.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj
+build SolarSystem.exe: CXX_EXECUTABLE_LINKER__SolarSystem_ CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj CMakeFiles/SolarSystem.dir/src/glad.c.obj CMakeFiles/SolarSystem.dir/src/main.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/planet.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj
   LINK_LIBRARIES = -lglfw3  -lopengl32  -lgdi32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/lib
   OBJECT_DIR = CMakeFiles\SolarSystem.dir

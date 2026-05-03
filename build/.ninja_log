@@ -1,11 +1,14 @@
 # ninja log v7
-12	170	7994464226058004	CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj	220e42836d8ab6fc
-57	205	7994464226510587	CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj	d9f2548a40491c98
-82	814	7994464226750716	CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj	879a62e413e41732
-69	847	7994464226630768	CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj	aef39a4dd68b7bf0
-4	1146	7994464225982855	CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj	6c640a5d8bc4d250
-33	1463	7994464226265345	CMakeFiles/SolarSystem.dir/src/glad.c.obj	3ae5e7d6010c7989
-24	1512	7994464226175357	CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj	f9465035d620744e
-47	1739	7994464226403092	CMakeFiles/SolarSystem.dir/src/main.cpp.obj	5d399ecbe3e160d
-96	1833	7994464226900745	CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj	e1fa1ba45b35b43a
-1834	2144	7994464244269962	SolarSystem.exe	6e2a38b4d510c786
+13	170	7995284288577465	CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj	220e42836d8ab6fc
+67	204	7995284289117395	CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj	d9f2548a40491c98
+86	814	7995284289302072	CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj	879a62e413e41732
+76	820	7995284289199204	CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj	aef39a4dd68b7bf0
+5	1279	7995284288486844	CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj	6c640a5d8bc4d250
+55	1343	7995284289001604	CMakeFiles/SolarSystem.dir/src/rendering/planet.cpp.obj	97cb9a6d1654b292
+32	1609	7995284288764940	CMakeFiles/SolarSystem.dir/src/glad.c.obj	3ae5e7d6010c7989
+20	1696	7995284288647544	CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj	f9465035d620744e
+93	1911	7995284289374803	CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj	e1fa1ba45b35b43a
+45	2011	7995284288898976	CMakeFiles/SolarSystem.dir/src/main.cpp.obj	5d399ecbe3e160d
+2012	2277	7995284308563823	SolarSystem.exe	cd5011837cff85b8
+47	1325	7995286508763216	CMakeFiles/SolarSystem.dir/src/main.cpp.obj	5d399ecbe3e160d
+1326	1578	7995286521550170	SolarSystem.exe	cd5011837cff85b8

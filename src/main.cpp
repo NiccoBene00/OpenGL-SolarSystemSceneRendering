@@ -8,6 +8,7 @@
 #include "rendering/sphere.h"
 #include "utils/texture.h"
 #include "utils/cubemap.h"
+#include "rendering/planet.h"
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -32,6 +33,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 // input
 void processInput(GLFWwindow* window);
+
 
 int main()
 {
@@ -87,19 +89,36 @@ int main()
 
     Sphere sphere;
 
+    //PLANETS DATA
+    std::vector<Planet> planets;
+
     //TEXTURE LOADING
     unsigned int earthTexture = loadTexture("resources/textures/earth.jpg");
     unsigned int sunTexture = loadTexture("resources/textures/sun.jpg");
+
+    planets = {
+        {"Mercury", 0.2f, 4.0f, 4.8f, 2.0f, loadTexture("resources/textures/mercury.jpg")},
+        {"Venus",   0.3f, 5.0f, 3.5f, 1.8f, loadTexture("resources/textures/venus.jpg")},
+        {"Earth",   0.5f, 6.5f, 2.9f, 2.5f, earthTexture},
+        {"Mars",    0.4f, 8.0f, 2.4f, 2.2f, loadTexture("resources/textures/mars.jpg")},
+        {"Jupiter", 1.2f, 10.0f, 1.3f, 3.0f, loadTexture("resources/textures/jupiter.jpg")},
+        {"Saturn",  1.0f, 12.0f,1.0f, 2.8f, loadTexture("resources/textures/saturn.jpg")},
+        {"Uranus",  0.8f, 14.0f,0.7f, 2.5f, loadTexture("resources/textures/uranus.jpg")},
+        {"Neptune", 0.8f, 16.0f,0.5f, 2.5f, loadTexture("resources/textures/neptune.jpg")}
+    };
+
     std::vector<std::string> faces = {
-        "resources/textures/skybox/right7.png",
-        "resources/textures/skybox/left7.png",
-        "resources/textures/skybox/top7.png",
-        "resources/textures/skybox/bottom7.png",
-        "resources/textures/skybox/front7.png",
-        "resources/textures/skybox/back7.png"
+        "resources/textures/skybox/right8.png",
+        "resources/textures/skybox/left8.png",
+        "resources/textures/skybox/top8.png",
+        "resources/textures/skybox/bottom8.png",
+        "resources/textures/skybox/front8.png",
+        "resources/textures/skybox/back8.png"
     };
 
     unsigned int cubemapTexture = loadCubemap(faces);
+
+    
 
     // ============================
     // HDR FRAMEBUFFER
@@ -302,6 +321,7 @@ int main()
             sphere.Draw();
         }
 
+        /*
         //  EARTH
         {
             float time = glfwGetTime();
@@ -321,9 +341,44 @@ int main()
             glBindTexture(GL_TEXTURE_2D, earthTexture);
             sphere.Draw();
         }
+        */
+
+        //PLANETS
+        {
+
+            float time = glfwGetTime();
+
+            for (auto& planet : planets)
+            {
+                float angle = time * planet.orbitSpeed;
+
+                float x = sin(angle) * planet.distance;
+                float z = cos(angle) * planet.distance;
+
+                glm::mat4 model = glm::mat4(1.0f);
+
+                // orbits
+                model = glm::translate(model, glm::vec3(x, 0.0f, z));
+
+                // rotation on its own axis
+                model = glm::rotate(model, time * planet.rotationSpeed,
+                                    glm::vec3(0.0f, 1.0f, 0.0f));
+
+                // scale
+                model = glm::scale(model, glm::vec3(planet.radius));
+
+                shader.setMat4("model", model);
+                shader.setInt("isEmissive", 0);
+
+                glBindTexture(GL_TEXTURE_2D, planet.textureID);
+
+                sphere.Draw();
+            }
+
+        }
 
         // =====================================================
-        // 🌌 DRAW SKYBOX (INSIDE HDR PASS)
+        // DRAW SKYBOX (INSIDE HDR PASS)
         // =====================================================
         glDepthFunc(GL_LEQUAL); // importante
 
