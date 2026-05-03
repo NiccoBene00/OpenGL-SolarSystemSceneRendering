@@ -14,8 +14,8 @@ The goal is to achieve a visually compelling and technically solid real-time ren
   - Sun
   - 8 planets
   - Earth’s Moon
-- Realistic textures for all celestial bodies
-- Background starfield (space environment)
+- Realistic textures for all planets
+- Full cubemap skybox filled with stars (texture available here https://opengameart.org/)
 
 ### Lighting & Effects
 - Phong lighting model
