@@ -114,7 +114,6 @@ Optional (future):
 
 ## Requirements
 
-- Windows (tested)
 - C++17 compatible compiler (e.g. `g++`, `clang`, MSVC)
 - CMake ≥ 3.10
 - OpenGL 3.3+
