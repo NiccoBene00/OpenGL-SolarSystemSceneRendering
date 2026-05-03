@@ -68,7 +68,11 @@ SolarSystem/
 │   ├── blur.vert           
 │   ├── blur.frag           
 │   ├── bloom_final.vert    
-│   └── bloom_final.frag    
+│   └── bloom_final.frag
+│   ├── quad.vert    
+│   └── quad.frag
+│   ├── skybox.vert    
+│   └── skybox.frag
 │
 ├── src/
 │   ├── main.cpp
@@ -85,9 +89,11 @@ SolarSystem/
 │
 │   ├── utils/              
 │   │   ├── texture.h / texture.cpp
+│   │   ├── cubemap.h / cubemap.cpp
 │
 ├── CMakeLists.txt          
 └── glfw3.dll
+└── README.md
 ```
 
 ---
