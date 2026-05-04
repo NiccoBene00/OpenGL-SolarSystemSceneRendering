@@ -35,6 +35,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
 
+
 int main()
 {
 
@@ -97,14 +98,14 @@ int main()
     unsigned int sunTexture = loadTexture("resources/textures/sun.jpg");
 
     planets = {
-        {"Mercury", 0.2f, 4.0f, 4.8f, 2.0f, loadTexture("resources/textures/mercury.jpg")},
-        {"Venus",   0.3f, 5.0f, 3.5f, 1.8f, loadTexture("resources/textures/venus.jpg")},
-        {"Earth",   0.5f, 6.5f, 2.9f, 2.5f, earthTexture},
-        {"Mars",    0.4f, 8.0f, 2.4f, 2.2f, loadTexture("resources/textures/mars.jpg")},
-        {"Jupiter", 1.2f, 10.0f, 1.3f, 3.0f, loadTexture("resources/textures/jupiter.jpg")},
-        {"Saturn",  1.0f, 12.0f,1.0f, 2.8f, loadTexture("resources/textures/saturn.jpg")},
-        {"Uranus",  0.8f, 14.0f,0.7f, 2.5f, loadTexture("resources/textures/uranus.jpg")},
-        {"Neptune", 0.8f, 16.0f,0.5f, 2.5f, loadTexture("resources/textures/neptune.jpg")}
+        {"Mercury", 0.6f, 7.0f, 2.4f, 2.0f, loadTexture("resources/textures/mercury.jpg")},
+        {"Venus",   0.7f, 10.0f, 1.25f, 1.8f, loadTexture("resources/textures/venus.jpg")},
+        {"Earth",   0.9f, 13.5f, 1.3f, 2.5f, earthTexture},
+        {"Mars",    0.8f, 16.0f, 1.2f, 2.2f, loadTexture("resources/textures/mars.jpg")},
+        {"Jupiter", 1.6f, 22.0f, 0.65f, 3.0f, loadTexture("resources/textures/jupiter.jpg")},
+        {"Saturn",  1.4f, 30.0f, 0.5f, 2.8f, loadTexture("resources/textures/saturn.jpg")},
+        {"Uranus",  1.2f, 38.0f, 0.35f, 2.5f, loadTexture("resources/textures/uranus.jpg")},
+        {"Neptune", 1.2f, 45.0f, 0.25f, 2.5f, loadTexture("resources/textures/neptune.jpg")}
     };
 
     std::vector<std::string> faces = {
@@ -248,6 +249,7 @@ int main()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
+
     
     unsigned int pingpongFBO[2];
     unsigned int pingpongColorbuffers[2];
@@ -312,7 +314,7 @@ int main()
         //  SUN
         {
             glm::mat4 model = glm::mat4(1.0f);
-            model = glm::scale(model, glm::vec3(1.5f));
+            model = glm::scale(model, glm::vec3(4.5f));
 
             shader.setMat4("model", model);
             shader.setInt("isEmissive", 1);
@@ -321,27 +323,6 @@ int main()
             sphere.Draw();
         }
 
-        /*
-        //  EARTH
-        {
-            float time = glfwGetTime();
-            float radius = 3.0f;
-
-            float x = sin(time) * radius;
-            float z = cos(time) * radius;
-
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, glm::vec3(x, 0.0f, z));
-            model = glm::rotate(model, time * 2.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.5f));
-
-            shader.setMat4("model", model);
-            shader.setInt("isEmissive", 0);
-
-            glBindTexture(GL_TEXTURE_2D, earthTexture);
-            sphere.Draw();
-        }
-        */
 
         //PLANETS
         {
