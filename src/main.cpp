@@ -9,6 +9,7 @@
 #include "utils/texture.h"
 #include "utils/cubemap.h"
 #include "rendering/planet.h"
+#include "rendering/orbit.h"
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -87,6 +88,7 @@ int main()
     Shader blurShader("../shaders/blur.vert", "../shaders/blur.frag");
     Shader finalShader("../shaders/quad.vert", "../shaders/bloom_final.frag");
     Shader skyboxShader("../shaders/skybox.vert", "../shaders/skybox.frag");
+    Shader orbitShader("../shaders/orbit.vert", "../shaders/orbit.frag");
 
     Sphere sphere;
 
@@ -96,18 +98,34 @@ int main()
     //TEXTURE LOADING
     unsigned int earthTexture = loadTexture("resources/textures/earth.jpg");
     unsigned int sunTexture = loadTexture("resources/textures/sun.jpg");
+    unsigned int moonTexture = loadTexture("resources/textures/moon.jpg");
 
     planets = {
         {"Mercury", 0.6f, 7.0f, 2.4f, 2.0f, loadTexture("resources/textures/mercury.jpg")},
         {"Venus",   0.7f, 10.0f, 1.25f, 1.8f, loadTexture("resources/textures/venus.jpg")},
         {"Earth",   0.9f, 13.5f, 1.3f, 2.5f, earthTexture},
-        {"Mars",    0.8f, 16.0f, 1.2f, 2.2f, loadTexture("resources/textures/mars.jpg")},
-        {"Jupiter", 1.6f, 22.0f, 0.65f, 3.0f, loadTexture("resources/textures/jupiter.jpg")},
-        {"Saturn",  1.4f, 30.0f, 0.5f, 2.8f, loadTexture("resources/textures/saturn.jpg")},
-        {"Uranus",  1.2f, 38.0f, 0.35f, 2.5f, loadTexture("resources/textures/uranus.jpg")},
-        {"Neptune", 1.2f, 45.0f, 0.25f, 2.5f, loadTexture("resources/textures/neptune.jpg")}
+        {"Mars",    0.8f, 16.5f, 1.2f, 2.2f, loadTexture("resources/textures/mars.jpg")},
+        {"Jupiter", 1.6f, 22.5f, 0.65f, 3.0f, loadTexture("resources/textures/jupiter.jpg")},
+        {"Saturn",  1.4f, 31.0f, 0.5f, 2.8f, loadTexture("resources/textures/saturn.jpg")},
+        {"Uranus",  1.2f, 39.0f, 0.35f, 2.5f, loadTexture("resources/textures/uranus.jpg")},
+        {"Neptune", 1.2f, 46.0f, 0.25f, 2.5f, loadTexture("resources/textures/neptune.jpg")}
     };
 
+    //ORBITS DATA
+    std::vector<Orbit> orbits;
+
+    for (auto& planet : planets)
+    {
+        orbits.emplace_back(planet.distance);
+    }
+
+    //MOON DATA
+    float moonDistance = 1.3f;   
+    float moonScale    = 0.15f;  
+    float moonOrbitSpeed = 2.0f; 
+    float moonRotationSpeed = 2.0f;
+
+    //SKYBOX TEXTURES
     std::vector<std::string> faces = {
         "resources/textures/skybox/right8.png",
         "resources/textures/skybox/left8.png",
@@ -295,7 +313,9 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        
         shader.use();
+
 
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
             (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -323,6 +343,27 @@ int main()
             sphere.Draw();
         }
 
+        // =====================================================
+        // DRAW ORBITS
+        // =====================================================
+        orbitShader.use();
+
+        orbitShader.setMat4("projection", projection);
+        orbitShader.setMat4("view", view);
+
+        // NASA-style color
+        orbitShader.setVec3("color", glm::vec3(0.6f, 0.7f, 0.8f));
+        orbitShader.setFloat("alpha", 0.25f);
+
+        // line width
+        glLineWidth(1.0f);
+
+        for (auto& orbit : orbits)
+        {
+            orbit.Draw();
+        }
+
+        shader.use();
 
         //PLANETS
         {
@@ -336,10 +377,12 @@ int main()
                 float x = sin(angle) * planet.distance;
                 float z = cos(angle) * planet.distance;
 
+                glm::vec3 planetPos = glm::vec3(x, 0.0f, z);
+
                 glm::mat4 model = glm::mat4(1.0f);
 
                 // orbits
-                model = glm::translate(model, glm::vec3(x, 0.0f, z));
+                model = glm::translate(model, planetPos);
 
                 // rotation on its own axis
                 model = glm::rotate(model, time * planet.rotationSpeed,
@@ -354,6 +397,34 @@ int main()
                 glBindTexture(GL_TEXTURE_2D, planet.textureID);
 
                 sphere.Draw();
+
+                //MOON
+                if (planet.name == "Earth")
+                    {
+                        float moonAngle = time * moonOrbitSpeed;
+
+                        float mx = sin(moonAngle) * moonDistance;
+                        float mz = cos(moonAngle) * moonDistance;
+
+                        glm::vec3 moonPos = planetPos + glm::vec3(mx, 0.0f, mz);
+
+                        glm::mat4 moonModel = glm::mat4(1.0f);
+
+                        // orbits around Earth
+                        moonModel = glm::translate(moonModel, moonPos);
+
+                        // rotation on its own axis
+                        moonModel = glm::rotate(moonModel, time * moonRotationSpeed,
+                                                glm::vec3(0.0f, 1.0f, 0.0f));
+
+                        moonModel = glm::scale(moonModel, glm::vec3(moonScale));
+
+                        shader.setMat4("model", moonModel);
+                        shader.setInt("isEmissive", 0);
+
+                        glBindTexture(GL_TEXTURE_2D, moonTexture);
+                        sphere.Draw();
+                    }
             }
 
         }
