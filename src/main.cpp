@@ -99,14 +99,15 @@ int main()
     unsigned int earthTexture = loadTexture("resources/textures/earth.jpg");
     unsigned int sunTexture = loadTexture("resources/textures/sun.jpg");
     unsigned int moonTexture = loadTexture("resources/textures/moon.jpg");
+    unsigned int earthNightTexture = loadTexture("resources/textures/earth_nightmap.jpg");
 
     planets = {
-        {"Mercury", 0.6f, 7.0f, 2.4f, 2.0f, loadTexture("resources/textures/mercury.jpg")},
-        {"Venus",   0.7f, 10.0f, 1.25f, 1.8f, loadTexture("resources/textures/venus.jpg")},
-        {"Earth",   0.9f, 13.5f, 1.3f, 2.5f, earthTexture},
-        {"Mars",    0.8f, 16.5f, 1.2f, 2.2f, loadTexture("resources/textures/mars.jpg")},
-        {"Jupiter", 1.6f, 22.5f, 0.65f, 3.0f, loadTexture("resources/textures/jupiter.jpg")},
-        {"Saturn",  1.4f, 31.0f, 0.5f, 2.8f, loadTexture("resources/textures/saturn.jpg")},
+        {"Mercury", 0.6f, 7.0f, 1.5f, 2.0f, loadTexture("resources/textures/mercury.jpg")},
+        {"Venus",   0.7f, 10.0f, 0.8f, 1.8f, loadTexture("resources/textures/venus.jpg")},
+        {"Earth",   1.1f, 13.5f, 0.82f, 2.5f, earthTexture},
+        {"Mars",    0.8f, 16.5f, 0.8f, 2.2f, loadTexture("resources/textures/mars.jpg")},
+        {"Jupiter", 1.6f, 22.5f, 0.45f, 3.0f, loadTexture("resources/textures/jupiter.jpg")},
+        {"Saturn",  1.4f, 31.0f, 0.4f, 2.8f, loadTexture("resources/textures/saturn.jpg")},
         {"Uranus",  1.2f, 39.0f, 0.35f, 2.5f, loadTexture("resources/textures/uranus.jpg")},
         {"Neptune", 1.2f, 46.0f, 0.25f, 2.5f, loadTexture("resources/textures/neptune.jpg")}
     };
@@ -126,6 +127,7 @@ int main()
     float moonRotationSpeed = 2.0f;
 
     //SKYBOX TEXTURES
+    
     std::vector<std::string> faces = {
         "resources/textures/skybox/right8.png",
         "resources/textures/skybox/left8.png",
@@ -134,9 +136,10 @@ int main()
         "resources/textures/skybox/front8.png",
         "resources/textures/skybox/back8.png"
     };
+    
 
     unsigned int cubemapTexture = loadCubemap(faces);
-
+    
     
 
     // ============================
@@ -307,7 +310,7 @@ int main()
         processInput(window);
 
         // =====================================================
-        // 1. RENDER SCENE → HDR FRAMEBUFFER
+        // 1. RENDER SCENE -> HDR FRAMEBUFFER
         // =====================================================
         glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -394,9 +397,24 @@ int main()
                 shader.setMat4("model", model);
                 shader.setInt("isEmissive", 0);
 
+                glActiveTexture(GL_TEXTURE0);
                 glBindTexture(GL_TEXTURE_2D, planet.textureID);
+                shader.setInt("diffuseMap", 0);
 
+                shader.setInt("hasNightMap", 0);
+
+                // NIGHT MAP SOLO PER LA TERRA
+                if (planet.name == "Earth")
+                {
+                    glActiveTexture(GL_TEXTURE1);
+                    glBindTexture(GL_TEXTURE_2D, earthNightTexture);
+                    shader.setInt("nightMap", 1);
+                    shader.setInt("hasNightMap", 1);
+                }
+                
                 sphere.Draw();
+
+                glActiveTexture(GL_TEXTURE0);
 
                 //MOON
                 if (planet.name == "Earth")
@@ -420,7 +438,8 @@ int main()
                         moonModel = glm::scale(moonModel, glm::vec3(moonScale));
 
                         shader.setMat4("model", moonModel);
-                        shader.setInt("isEmissive", 0);
+                        //shader.setInt("isEmissive", 0);
+                        shader.setInt("hasNightMap", 0);
 
                         glBindTexture(GL_TEXTURE_2D, moonTexture);
                         sphere.Draw();
