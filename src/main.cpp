@@ -1,6 +1,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
+
 #include <iostream>
 
 #include "core/shader.h"
@@ -58,13 +62,16 @@ int main()
 
     glfwMakeContextCurrent(window);
 
+    //mouse capture
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
     // callbacks
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
     // cattura mouse
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // ---------------------------
     // INIT GLAD
@@ -74,6 +81,17 @@ int main()
         std::cout << "Failed to initialize GLAD\n";
         return -1;
     }
+
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    ImGui::StyleColorsDark();
+
+    // init backend
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
 
     // ---------------------------
     // OPENGL CONFIG
@@ -294,7 +312,18 @@ int main()
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
             GL_TEXTURE_2D, pingpongColorbuffers[i], 0);
     }
-    
+
+
+    //---------------------------
+    //GUI variables
+    float timeScale = 1.0f;
+
+    bool bloomEnabled = true;
+    float exposure = 1.0f;
+
+    bool showOrbitLines = true;
+    //---------------------------
+
     // ---------------------------
     // RENDER LOOP
     // ---------------------------
@@ -308,6 +337,43 @@ int main()
         lastFrame = currentFrame;
 
         processInput(window);
+
+        //start the ImGui frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        //=====================================
+        //GUI controls
+        //=====================================
+        ImGui::Begin("Solar System Controls");
+
+        // simulation
+        ImGui::Text("Simulation");
+
+        ImGui::SliderFloat("Time Scale", &timeScale, 0.0f, 20.0f);
+
+        // bloom
+        ImGui::Separator();
+
+        ImGui::Text("Bloom Settings");
+
+        ImGui::Checkbox("Enable Bloom", &bloomEnabled);
+
+        ImGui::SliderFloat("Exposure", &exposure, 0.1f, 5.0f);
+
+        // orbit lines
+        ImGui::Separator();
+
+        ImGui::Checkbox("Show Orbit Lines", &showOrbitLines);
+
+        // FPS
+        ImGui::Separator();
+
+        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+
+        ImGui::End();
+
 
         // =====================================================
         // 1. RENDER SCENE -> HDR FRAMEBUFFER
@@ -361,9 +427,12 @@ int main()
         // line width
         glLineWidth(1.0f);
 
-        for (auto& orbit : orbits)
+        if (showOrbitLines)
         {
-            orbit.Draw();
+            for (auto& orbit : orbits)
+            {
+                orbit.Draw();
+            }
         }
 
         shader.use();
@@ -371,7 +440,7 @@ int main()
         //PLANETS
         {
 
-            float time = glfwGetTime();
+            float time = glfwGetTime() * timeScale;
 
             for (auto& planet : planets)
             {
@@ -516,13 +585,19 @@ int main()
         glBindTexture(GL_TEXTURE_2D, pingpongColorbuffers[!horizontal]);
         finalShader.setInt("bloomBlur", 1);
 
-        finalShader.setBool("bloom", true);
-        finalShader.setFloat("exposure", 1.0f);
+        finalShader.setBool("bloom", bloomEnabled);
+        finalShader.setFloat("exposure", exposure);
 
         glBindVertexArray(quadVAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glEnable(GL_DEPTH_TEST);
+
+        // =====================================================
+        // RENDER GUI
+        // =====================================================
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -532,14 +607,49 @@ int main()
     return 0;
 }
 
+
+bool mouseCaptured = true;
+bool tabPressedLastFrame = false;
+
 // ---------------------------
 // INPUT
 // ---------------------------
 void processInput(GLFWwindow* window)
 {
+    // =====================================================
+    // TAB TOGGLE (solo una volta per pressione)
+    // =====================================================
+    bool tabCurrentlyPressed =
+        glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS;
+
+    if (tabCurrentlyPressed && !tabPressedLastFrame)
+    {
+        mouseCaptured = !mouseCaptured;
+
+        if (mouseCaptured)
+        {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+            // evita salto improvviso camera
+            firstMouse = true;
+        }
+        else
+        {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+    }
+
+    tabPressedLastFrame = tabCurrentlyPressed;
+
+    // =====================================================
+    // ESCAPE
+    // =====================================================
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
+    // =====================================================
+    // CAMERA MOVEMENT (sempre attivo)
+    // =====================================================
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         camera.ProcessKeyboard(FORWARD, deltaTime);
 
@@ -563,6 +673,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
+    // se la UI è attiva, ignora mouse look
+    if (!mouseCaptured)
+        return;
+
     if (firstMouse)
     {
         lastX = xpos;

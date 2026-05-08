@@ -47,7 +47,7 @@ build cmake_object_order_depends_target_SolarSystem: phony || .
 build CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/core/camera.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\core\camera.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\core
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -57,7 +57,7 @@ build CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj: CXX_COMPILER__SolarSys
 build CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/core/framebuffer.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\core\framebuffer.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\core
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -67,7 +67,7 @@ build CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj: CXX_COMPILER__Sol
 build CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/core/shader.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\core\shader.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\core
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -76,7 +76,7 @@ build CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj: CXX_COMPILER__SolarSys
 
 build CMakeFiles/SolarSystem.dir/src/glad.c.obj: C_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/glad.c || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\glad.c.obj.d
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -86,7 +86,7 @@ build CMakeFiles/SolarSystem.dir/src/glad.c.obj: C_COMPILER__SolarSystem_unscann
 build CMakeFiles/SolarSystem.dir/src/main.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/main.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\main.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -96,7 +96,7 @@ build CMakeFiles/SolarSystem.dir/src/main.cpp.obj: CXX_COMPILER__SolarSystem_uns
 build CMakeFiles/SolarSystem.dir/src/rendering/orbit.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/rendering/orbit.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\rendering\orbit.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\rendering
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -106,7 +106,7 @@ build CMakeFiles/SolarSystem.dir/src/rendering/orbit.cpp.obj: CXX_COMPILER__Sola
 build CMakeFiles/SolarSystem.dir/src/rendering/planet.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/rendering/planet.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\rendering\planet.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\rendering
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -116,7 +116,7 @@ build CMakeFiles/SolarSystem.dir/src/rendering/planet.cpp.obj: CXX_COMPILER__Sol
 build CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/rendering/render.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\rendering\render.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\rendering
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -126,7 +126,7 @@ build CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj: CXX_COMPILER__Sol
 build CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/rendering/sphere.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\rendering\sphere.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\rendering
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -136,7 +136,7 @@ build CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj: CXX_COMPILER__Sol
 build CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/utils/cubemap.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\utils\cubemap.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\utils
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
@@ -146,9 +146,69 @@ build CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj: CXX_COMPILER__SolarS
 build CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/src/utils/texture.cpp || cmake_object_order_depends_target_SolarSystem
   DEP_FILE = CMakeFiles\SolarSystem.dir\src\utils\texture.cpp.obj.d
   FLAGS = -std=gnu++17
-  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
   OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\src\utils
+  TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
+  TARGET_PDB = SolarSystem.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
+
+build CMakeFiles/SolarSystem.dir/external/imgui/imgui.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/imgui.cpp || cmake_object_order_depends_target_SolarSystem
+  DEP_FILE = CMakeFiles\SolarSystem.dir\external\imgui\imgui.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
+  OBJECT_DIR = CMakeFiles\SolarSystem.dir
+  OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\external\imgui
+  TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
+  TARGET_PDB = SolarSystem.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
+
+build CMakeFiles/SolarSystem.dir/external/imgui/imgui_draw.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/imgui_draw.cpp || cmake_object_order_depends_target_SolarSystem
+  DEP_FILE = CMakeFiles\SolarSystem.dir\external\imgui\imgui_draw.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
+  OBJECT_DIR = CMakeFiles\SolarSystem.dir
+  OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\external\imgui
+  TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
+  TARGET_PDB = SolarSystem.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
+
+build CMakeFiles/SolarSystem.dir/external/imgui/imgui_tables.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/imgui_tables.cpp || cmake_object_order_depends_target_SolarSystem
+  DEP_FILE = CMakeFiles\SolarSystem.dir\external\imgui\imgui_tables.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
+  OBJECT_DIR = CMakeFiles\SolarSystem.dir
+  OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\external\imgui
+  TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
+  TARGET_PDB = SolarSystem.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
+
+build CMakeFiles/SolarSystem.dir/external/imgui/imgui_widgets.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_SolarSystem
+  DEP_FILE = CMakeFiles\SolarSystem.dir\external\imgui\imgui_widgets.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
+  OBJECT_DIR = CMakeFiles\SolarSystem.dir
+  OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\external\imgui
+  TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
+  TARGET_PDB = SolarSystem.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
+
+build CMakeFiles/SolarSystem.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends/imgui_impl_glfw.cpp || cmake_object_order_depends_target_SolarSystem
+  DEP_FILE = CMakeFiles\SolarSystem.dir\external\imgui\backends\imgui_impl_glfw.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
+  OBJECT_DIR = CMakeFiles\SolarSystem.dir
+  OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\external\imgui\backends
+  TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
+  TARGET_PDB = SolarSystem.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
+
+build CMakeFiles/SolarSystem.dir/external/imgui/backends/imgui_impl_opengl3.cpp.obj: CXX_COMPILER__SolarSystem_unscanned_ C$:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends/imgui_impl_opengl3.cpp || cmake_object_order_depends_target_SolarSystem
+  DEP_FILE = CMakeFiles\SolarSystem.dir\external\imgui\backends\imgui_impl_opengl3.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/include -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui -IC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/external/imgui/backends
+  OBJECT_DIR = CMakeFiles\SolarSystem.dir
+  OBJECT_FILE_DIR = CMakeFiles\SolarSystem.dir\external\imgui\backends
   TARGET_COMPILE_PDB = CMakeFiles\SolarSystem.dir\
   TARGET_PDB = SolarSystem.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\SolarSystem.dir
@@ -161,7 +221,7 @@ build CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj: CXX_COMPILER__SolarS
 #############################################
 # Link the executable SolarSystem.exe
 
-build SolarSystem.exe: CXX_EXECUTABLE_LINKER__SolarSystem_ CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj CMakeFiles/SolarSystem.dir/src/glad.c.obj CMakeFiles/SolarSystem.dir/src/main.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/orbit.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/planet.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj
+build SolarSystem.exe: CXX_EXECUTABLE_LINKER__SolarSystem_ CMakeFiles/SolarSystem.dir/src/core/camera.cpp.obj CMakeFiles/SolarSystem.dir/src/core/framebuffer.cpp.obj CMakeFiles/SolarSystem.dir/src/core/shader.cpp.obj CMakeFiles/SolarSystem.dir/src/glad.c.obj CMakeFiles/SolarSystem.dir/src/main.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/orbit.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/planet.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/render.cpp.obj CMakeFiles/SolarSystem.dir/src/rendering/sphere.cpp.obj CMakeFiles/SolarSystem.dir/src/utils/cubemap.cpp.obj CMakeFiles/SolarSystem.dir/src/utils/texture.cpp.obj CMakeFiles/SolarSystem.dir/external/imgui/imgui.cpp.obj CMakeFiles/SolarSystem.dir/external/imgui/imgui_draw.cpp.obj CMakeFiles/SolarSystem.dir/external/imgui/imgui_tables.cpp.obj CMakeFiles/SolarSystem.dir/external/imgui/imgui_widgets.cpp.obj CMakeFiles/SolarSystem.dir/external/imgui/backends/imgui_impl_glfw.cpp.obj CMakeFiles/SolarSystem.dir/external/imgui/backends/imgui_impl_opengl3.cpp.obj
   LINK_LIBRARIES = -lglfw3  -lopengl32  -lgdi32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/nicco/Desktop/ULB/courses/secondterm/infoh502-3DGraphics/project/SolarSystem/lib
   OBJECT_DIR = CMakeFiles\SolarSystem.dir
