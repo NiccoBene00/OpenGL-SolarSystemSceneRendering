@@ -2,8 +2,7 @@
 
 # Solar System with HDR Bloom (OpenGL C++)
 
-A modern OpenGL 3D project that simulates the Solar System with a strong focus on **HDR rendering and bloom effects**.  
-The goal is to achieve a solid rendering pipeline to learn how to manipulate OpenGL correctly.
+An OpenGL 3D project that simulates the Solar System with a strong focus on **HDR rendering and bloom effects**.  
 
 ---
 
