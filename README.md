@@ -7,8 +7,6 @@ The goal is to achieve a solid rendering pipeline to learn how to manipulate Ope
 
 ---
 
-## Features
-
 ### Core Rendering
 - Full 3D rendering of:
   - Sun
@@ -16,6 +14,61 @@ The goal is to achieve a solid rendering pipeline to learn how to manipulate Ope
   - Earth’s Moon
 - Realistic textures for all planets
 - Full cubemap skybox filled with stars (texture available here https://opengameart.org/)
+
+## Basic Features
+
+### Lights
+- Phong lighting
+- diffuse
+- specular
+- ambient
+- emissive Sun
+- HDR exposure
+
+### Textures
+- texture for sun and each planet
+- moon
+- night map Earth
+- cubemap skybox
+
+### Multiple Models
+- multiple sphere instances
+- different textures
+- separate moon
+
+### Cubemap
+- real cubemap skybox
+- 6 textures
+
+### Game Logic
+- orbits system
+- hierarchy Earth/Moon
+- time control
+- UI runtime
+- toggle for bloom and orbits
+
+### Object Moving
+- orbits
+- rotations
+- camera
+
+### Free Navigation
+- FPS camera
+- moule look
+- WASD system
+- zoom
+
+### Reflection
+- skybox texture reflect on Earth
+
+## Intermediate Features
+
+### Frame Buffer Object effect
+- HDR framebuffer
+- ping pong blur
+- bloom pipeline
+
+
 
 ### Lighting & Effects
 - Phong lighting model
