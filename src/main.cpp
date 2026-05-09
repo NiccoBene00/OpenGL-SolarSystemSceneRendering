@@ -19,6 +19,9 @@
 const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
 
+//const unsigned int SCR_WIDTH = 1600;
+//const unsigned int SCR_HEIGHT = 900;
+
 // camera
 Camera camera;
 
@@ -70,8 +73,6 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-    // cattura mouse
-    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // ---------------------------
     // INIT GLAD
@@ -82,6 +83,8 @@ int main()
         return -1;
     }
 
+
+    //GUI SETUP
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 

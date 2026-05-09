@@ -17,3 +17,5 @@
 187	4656	7999543789705544	CMakeFiles/SolarSystem.dir/external/imgui/imgui_widgets.cpp.obj	d022a48310af2f3f
 116	6138	7999543788996732	CMakeFiles/SolarSystem.dir/external/imgui/imgui.cpp.obj	5fea534c963ac961
 6138	6431	7999543849221606	SolarSystem.exe	5a33b1aec358f872
+98	9730	8000267263018065	CMakeFiles/SolarSystem.dir/src/main.cpp.obj	b4f7f3bb05d67d9e
+9731	10423	8000267359348311	SolarSystem.exe	5a33b1aec358f872
