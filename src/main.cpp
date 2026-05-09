@@ -1,3 +1,505 @@
+/*
+
+
+================================================================================
+OPENGL RENDERING PIPELINE OVERVIEW
+================================================================================
+
+This project implements an OpenGL Core rendering pipeline using:
+
+- GLFW        -> window creation + input handling
+- GLAD        -> OpenGL function loader
+- GLM         -> mathematics library (matrices/vectors)
+- stb_image   -> texture loading
+- ImGui       -> runtime GUI controls
+
+The goal of the project is to simulate a 3D Solar System with:
+
+- physically-inspired lighting
+- HDR rendering
+- Bloom post-processing
+- Cubemap reflections
+- Skybox rendering
+- Orbit simulation
+- Interactive camera system
+- ImGui controls for bloom/exposure/time scale
+
+--------------------------------------------------------------------------------
+1. GRAPHICS PIPELINE OVERVIEW
+--------------------------------------------------------------------------------
+
+OpenGL works as a GPU rendering pipeline.
+
+The pipeline transforms 3D geometry into pixels displayed on screen.
+
+The main stages are:
+
+CPU SIDE (C++ CODE)
+    |
+    |  Upload vertices/textures/shader uniforms
+    v
+GPU PIPELINE
+
+Vertex Data --> Vertex Shader --> Primitive Assembly --> Rasterization
+                                                    --> Fragment Shader
+                                                    --> Framebuffer
+                                                    --> Screen
+
+--------------------------------------------------------------------------------
+2. VERTEX DATA
+--------------------------------------------------------------------------------
+
+Objects in OpenGL are represented using vertices.
+
+A vertex usually contains:
+
+- Position     (vec3)
+- Normal        (vec3)
+- Texture Coord (vec2)
+
+Example from the Sphere mesh:
+
+    position -> defines where the point exists in 3D space
+    normal   -> used for lighting calculations
+    UV coords-> used to sample textures
+
+The vertex data is uploaded to GPU memory using:
+
+- VBO (Vertex Buffer Object)
+- VAO (Vertex Array Object)
+
+VBO:
+    stores raw vertex data inside GPU memory
+
+VAO:
+    stores how vertex attributes are interpreted
+
+Example:
+
+    location 0 -> position
+    location 1 -> normal
+    location 2 -> texture coordinates
+
+--------------------------------------------------------------------------------
+3. SHADERS
+--------------------------------------------------------------------------------
+
+Shaders are small GPU programs written in GLSL.
+They run for each vertex/fragment and compute transformations and colors.
+
+The rendering pipeline executes shaders directly on the GPU.
+
+--------------------------------------------------------------------------------
+4. VERTEX SHADER
+--------------------------------------------------------------------------------
+
+The Vertex Shader runs ONCE per vertex.
+
+Responsibilities:
+
+- transform vertices from local space to world space
+- apply camera transformation
+- apply projection transformation
+- pass data to fragment shader
+
+Main transformations:
+
+MODEL MATRIX:
+    transforms object from local coordinates into world coordinates
+
+VIEW MATRIX:
+    represents the camera transformation
+
+PROJECTION MATRIX:
+    converts 3D perspective into normalized screen coordinates
+
+Final transformation:
+
+    gl_Position = projection * view * model * vec4(position, 1.0)
+
+This converts a 3D point into clip-space coordinates.
+
+The vertex shader also outputs:
+
+- FragPos
+- Normal
+- TexCoords
+
+These values are interpolated automatically across the triangle.
+
+--------------------------------------------------------------------------------
+5. RASTERIZATION
+--------------------------------------------------------------------------------
+
+After the Vertex Shader stage:
+
+- triangles are assembled
+- transformed into fragments (potential pixels)
+
+OpenGL interpolates values between vertices.
+
+For instance normals and UV coordinates smoothly interpolate across the surface.
+
+--------------------------------------------------------------------------------
+6. FRAGMENT SHADER
+--------------------------------------------------------------------------------
+
+The Fragment Shader runs ONCE per fragment/pixel.
+
+Responsibilities:
+
+- compute lighting
+- sample textures
+- compute final color
+- write output into framebuffer
+
+This project uses Phong Lighting:
+
+Ambient:
+    constant base light
+
+Diffuse:
+    depends on angle between light direction and normal
+
+Specular:
+    shiny highlight based on reflection vector and view direction
+
+Formula:
+
+    result = ambient + diffuse + specular
+
+--------------------------------------------------------------------------------
+7. TEXTURES
+--------------------------------------------------------------------------------
+
+Textures are images loaded into GPU memory.
+
+Used for:
+
+- planet surfaces
+- Sun texture
+- Earth night lights
+- skybox cubemap
+
+Textures are sampled inside fragment shaders using:
+
+    texture(sampler, uv)
+
+OpenGL texture units:
+
+GL_TEXTURE0
+GL_TEXTURE1
+GL_TEXTURE2
+...
+
+Multiple textures can be bound simultaneously.
+
+Example in this project:
+
+TEXTURE0 -> diffuse map
+TEXTURE1 -> Earth night map
+TEXTURE2 -> cubemap reflection
+
+--------------------------------------------------------------------------------
+8. LIGHTING SYSTEM
+--------------------------------------------------------------------------------
+
+The Sun acts as the main light source.
+
+The light position is passed as a uniform:
+
+    shader.setVec3("lightPos", glm::vec3(0.0f));
+
+Each planet computes:
+
+- diffuse shading
+- specular reflections
+- shadowed side
+- night illumination
+
+The Earth uses a special night texture:
+
+- visible only on the dark side
+- blended using the diffuse lighting factor
+
+--------------------------------------------------------------------------------
+9. HDR RENDERING
+--------------------------------------------------------------------------------
+
+This project uses HDR (High Dynamic Range) rendering.
+
+Normal rendering stores colors between:
+
+    [0,1]
+
+HDR rendering allows values larger than 1:
+
+    > 1.0
+
+This is essential for:
+
+- realistic bloom
+- emissive Sun
+- bright highlights
+
+The HDR framebuffer uses floating-point textures:
+
+    GL_RGBA16F
+
+--------------------------------------------------------------------------------
+10. FRAMEBUFFERS
+--------------------------------------------------------------------------------
+
+A Framebuffer is an off-screen rendering target.
+
+Instead of rendering directly to the monitor,
+we first render the scene into textures.
+
+This project uses:
+
+HDR FBO:
+    stores full rendered scene
+
+Color Attachment 0:
+    normal rendered scene
+
+Color Attachment 1:
+    bright fragments only
+
+This enables post-processing effects.
+
+--------------------------------------------------------------------------------
+11. BLOOM EFFECT
+--------------------------------------------------------------------------------
+
+Bloom simulates light bleeding from extremely bright areas.
+
+Pipeline:
+
+STEP 1:
+    render scene into HDR framebuffer
+
+STEP 2:
+    extract bright fragments
+
+STEP 3:
+    blur bright texture using Gaussian Blur
+
+STEP 4:
+    combine blurred image with original scene
+
+This project uses Ping-Pong Blur:
+
+- two framebuffers
+- alternating horizontal/vertical blur
+
+This creates smooth glow around:
+
+- Sun
+- emissive objects
+- Earth night lights
+
+--------------------------------------------------------------------------------
+12. GAUSSIAN BLUR
+--------------------------------------------------------------------------------
+
+Blur is implemented as a post-processing shader.
+
+The shader samples neighboring pixels using weighted offsets.
+
+Horizontal pass:
+    blur across X axis
+
+Vertical pass:
+    blur across Y axis
+
+Multiple iterations increase smoothness.
+
+--------------------------------------------------------------------------------
+13. TONE MAPPING
+--------------------------------------------------------------------------------
+
+HDR values cannot be displayed directly on monitor.
+
+Tone mapping converts HDR into displayable colors.
+
+This project uses exposure-based tone mapping:
+
+    mapped = 1.0 - exp(-hdrColor * exposure)
+
+Exposure can be controlled at runtime using ImGui.
+
+--------------------------------------------------------------------------------
+14. SKYBOX + CUBEMAP
+--------------------------------------------------------------------------------
+
+The skybox represents deep space surrounding the scene.
+
+Implemented using a Cubemap:
+
+- 6 textures
+- one for each cube face
+
+The skybox is rendered using:
+
+    GL_TEXTURE_CUBE_MAP
+
+The camera translation is removed from the skybox view matrix:
+
+    glm::mat4(glm::mat3(view))
+
+This creates the illusion of infinite distance.
+
+--------------------------------------------------------------------------------
+15. REFLECTIONS
+--------------------------------------------------------------------------------
+
+Reflection is implemented using environment mapping.
+
+The fragment shader computes:
+
+- incident vector
+- reflection vector
+
+using:
+
+    reflect(I, N)
+
+The reflection vector samples the cubemap texture.
+
+This creates fake real-time reflections on planets.
+
+--------------------------------------------------------------------------------
+16. CAMERA SYSTEM
+--------------------------------------------------------------------------------
+
+The project uses a free-fly FPS camera.
+
+Controls:
+
+- WASD movement
+- mouse look
+- scroll zoom
+
+The View Matrix is generated using:
+
+    camera.GetViewMatrix()
+
+This simulates movement through 3D space.
+
+--------------------------------------------------------------------------------
+17. IMGUI USER INTERFACE
+--------------------------------------------------------------------------------
+
+ImGui provides runtime GUI controls.
+
+Used for:
+
+- bloom toggle
+- exposure slider
+- time scale control
+- orbit visibility
+
+The GUI is rendered after the 3D scene.
+
+--------------------------------------------------------------------------------
+18. DEPTH TESTING
+--------------------------------------------------------------------------------
+
+Depth testing ensures correct visibility.
+
+Each fragment stores a depth value.
+
+OpenGL keeps the closest fragment.
+
+Enabled using:
+
+    glEnable(GL_DEPTH_TEST)
+
+Without depth testing:
+
+- objects would render on top of each other incorrectly
+
+--------------------------------------------------------------------------------
+19. SOLAR SYSTEM SIMULATION
+--------------------------------------------------------------------------------
+
+Planet motion is simulated mathematically.
+
+Orbit equations:
+
+    x = sin(angle) * radius
+    z = cos(angle) * radius
+
+Each planet has:
+
+- orbit speed
+- rotation speed
+- distance from Sun
+- scale factor
+
+The Moon uses hierarchical transformations:
+
+    moonPosition = earthPosition + orbitOffset
+
+--------------------------------------------------------------------------------
+20. FINAL RENDERING FLOW OF THE PROJECT
+--------------------------------------------------------------------------------
+
+FRAME LOOP:
+
+1. Process input
+2. Start ImGui frame
+3. Render scene into HDR framebuffer
+4. Render planets + lighting
+5. Render skybox
+6. Extract bright fragments
+7. Apply Gaussian blur
+8. Combine scene + bloom
+9. Render ImGui
+10. Swap buffers
+
+--------------------------------------------------------------------------------
+21. IMPORTANT OPENGL CONCEPTS USED
+--------------------------------------------------------------------------------
+
+VAO:
+    stores vertex attribute configuration
+
+VBO:
+    stores vertex data inside GPU memory
+
+EBO:
+    stores index data
+
+Shader:
+    GPU program executed per vertex/fragment
+
+Framebuffer:
+    off-screen render target
+
+Cubemap:
+    6-sided environment texture
+
+Uniform:
+    CPU -> GPU variable
+
+Sampler:
+    texture access inside shader
+
+Depth Buffer:
+    stores fragment depth information
+
+Post-Processing:
+    image-space effect applied after rendering
+
+================================================================================
+END OF OPENGL OVERVIEW
+================================================================================
+*/
+
+
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -403,6 +905,8 @@ int main()
         shader.setInt("diffuseMap", 0);
         glActiveTexture(GL_TEXTURE0);
 
+        shader.setInt("skybox", 2);
+
         //  SUN
         {
             glm::mat4 model = glm::mat4(1.0f);
@@ -440,6 +944,10 @@ int main()
 
         shader.use();
 
+        //bind skybox cubemap to texture unit 2
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+
         //PLANETS
         {
 
@@ -475,6 +983,8 @@ int main()
 
                 shader.setInt("hasNightMap", 0);
 
+                shader.setInt("useReflection", 0);
+
                 // NIGHT MAP SOLO PER LA TERRA
                 if (planet.name == "Earth")
                 {
@@ -482,11 +992,14 @@ int main()
                     glBindTexture(GL_TEXTURE_2D, earthNightTexture);
                     shader.setInt("nightMap", 1);
                     shader.setInt("hasNightMap", 1);
+                    shader.setInt("useReflection", 1);
                 }
                 
                 sphere.Draw();
 
                 glActiveTexture(GL_TEXTURE0);
+
+                shader.setInt("useReflection", 1);
 
                 //MOON
                 if (planet.name == "Earth")
@@ -523,11 +1036,11 @@ int main()
         // =====================================================
         // DRAW SKYBOX (INSIDE HDR PASS)
         // =====================================================
-        glDepthFunc(GL_LEQUAL); // importante
+        glDepthFunc(GL_LEQUAL); // important for the skybox to be rendered behing everything else
 
         skyboxShader.use();
 
-        // rimuove la traslazione della camera
+        //remove camera translation
         glm::mat4 viewSky = glm::mat4(glm::mat3(view));
 
         skyboxShader.setMat4("view", viewSky);
@@ -620,7 +1133,7 @@ bool tabPressedLastFrame = false;
 void processInput(GLFWwindow* window)
 {
     // =====================================================
-    // TAB TOGGLE (solo una volta per pressione)
+    // TAB TOGGLE (just one time click)
     // =====================================================
     bool tabCurrentlyPressed =
         glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS;
@@ -633,7 +1146,7 @@ void processInput(GLFWwindow* window)
         {
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-            // evita salto improvviso camera
+            // avoid out of the blue camera jump
             firstMouse = true;
         }
         else
@@ -651,7 +1164,7 @@ void processInput(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
 
     // =====================================================
-    // CAMERA MOVEMENT (sempre attivo)
+    // CAMERA MOVEMENT (always active, even when UI is active)
     // =====================================================
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         camera.ProcessKeyboard(FORWARD, deltaTime);
@@ -676,7 +1189,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    // se la UI è attiva, ignora mouse look
+    //if the UI is active, ignore mouse look
     if (!mouseCaptured)
         return;
 
