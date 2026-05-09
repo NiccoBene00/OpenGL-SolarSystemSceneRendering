@@ -68,31 +68,6 @@ The goal is to achieve a solid rendering pipeline to learn how to manipulate Ope
 - ping pong blur
 - bloom pipeline
 
-
-
-### Lighting & Effects
-- Phong lighting model
-- HDR rendering pipeline
-- Bloom effect applied to the Sun
-- Light spill and glow on nearby planets
-- Emission-based rendering for bright objects
-
-### Simulation
-- Orbital motion for planets and moon
-- Scaled (but visually coherent) distances and sizes
-- Adjustable time speed *(planned / optional)*
-
-### Camera System
-- Free-roaming camera
-- Mouse look
-- WASD movement
-
-### Advanced (Planned for now)
-- Click on a planet to follow it
-- UI controls (ImGui)
-- Exposure control
-- Bloom intensity tuning
-
 ---
 
 ## Project Tree Folder
@@ -111,6 +86,7 @@ SolarSystem/
 │
 ├── resources/
 │   ├── textures/
+│       ├── skybox/
 │   └── hdr/                
 │
 ├── shaders/
@@ -119,7 +95,9 @@ SolarSystem/
 │   ├── light.vert
 │   ├── light.frag
 │   ├── blur.vert           
-│   ├── blur.frag           
+│   ├── blur.frag
+|   ├── orbit.frag
+|   ├── orbit.vert           
 │   ├── bloom_final.vert    
 │   └── bloom_final.frag
 │   ├── quad.vert    
@@ -138,12 +116,17 @@ SolarSystem/
 │
 │   ├── rendering/          
 │   │   ├── sphere.h / sphere.cpp
-│   │   ├── renderer.h / renderer.cpp
+│   │   ├── render.h / render.cpp
+│   │   ├── orbit.h / orbit.cpp
+│   │   ├── planet.h / planet.cpp
 │
 │   ├── utils/              
 │   │   ├── texture.h / texture.cpp
 │   │   ├── cubemap.h / cubemap.cpp
-│
+|
+│   ├── external/
+│   │   ├── imgui
+|
 ├── CMakeLists.txt          
 └── glfw3.dll
 └── README.md
@@ -155,14 +138,12 @@ SolarSystem/
 
 The project uses the following libraries:
 
-- **GLFW** → windowing and input  
-- **GLAD** → OpenGL loader  
-- **GLM** → mathematics (vectors, matrices)  
-- **stb_image** → texture loading  
-
-Optional (future):
-- ImGui → UI controls
-
+- **GLFW** -> windowing and input  
+- **GLAD** -> OpenGL loader  
+- **GLM** -> mathematics (vectors, matrices)  
+- **stb_image** -> texture loading
+- **imgui** -> ImGuI rendering
+  
 ---
 
 ## Requirements
@@ -184,7 +165,7 @@ cd SolarSystem
 
 ## Building Instruction
 
-Create build directory
+Create build directory under the root folder
 ```bash
 mkdir build
 cd build
