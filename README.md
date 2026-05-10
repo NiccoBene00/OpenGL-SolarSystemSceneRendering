@@ -91,8 +91,6 @@ SolarSystem/
 ├── shaders/
 │   ├── scene.vert
 │   ├── scene.frag
-│   ├── light.vert
-│   ├── light.frag
 │   ├── blur.vert           
 │   ├── blur.frag
 |   ├── orbit.frag
