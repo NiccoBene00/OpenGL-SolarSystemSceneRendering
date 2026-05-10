@@ -4,12 +4,13 @@
 
 Orbit::Orbit(float radius, int segments)
 {
-    std::vector<float> vertices;
+    std::vector<float> vertices; //stores the vertices of the orbit line
 
     for (int i = 0; i < segments; ++i)
     {
-        float angle = 2.0f * 3.1415926f * i / segments;
+        float angle = 2.0f * 3.1415926f * i / segments; //convert segment index to angle in radians
 
+        //classic parametric equation of a circle in the XZ plane
         float x = cos(angle) * radius;
         float z = sin(angle) * radius;
 

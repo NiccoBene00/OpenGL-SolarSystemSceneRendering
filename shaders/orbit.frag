@@ -1,3 +1,5 @@
+//This shader colors the orbital lines
+
 #version 330 core
 out vec4 FragColor;
 

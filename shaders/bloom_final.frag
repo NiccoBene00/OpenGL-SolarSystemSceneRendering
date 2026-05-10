@@ -11,17 +11,22 @@ uniform float exposure; //control how bright is the final image
 
 void main()
 {
-    vec3 hdrColor = texture(scene, TexCoords).rgb;
+    //load original hdrColor
+    vec3 hdrColor = texture(scene, TexCoords).rgb; 
+
+    //load blurred glow texture
     vec3 bloomColor = texture(bloomBlur, TexCoords).rgb;
 
     if(bloom)
         hdrColor += bloomColor;
 
-    // tone mapping
+    // tone mapping: convert HDR values into display-readable range
     vec3 result = vec3(1.0) - exp(-hdrColor * exposure);
 
-    // gamma correction
+    // gamma correction since monitors are not non-linear devices so 
+    //without gamma correction colors look too dark and lights become incorrect
     result = pow(result, vec3(1.0 / 2.2));
 
+    //final image displayed on screen
     FragColor = vec4(result, 1.0);
 }

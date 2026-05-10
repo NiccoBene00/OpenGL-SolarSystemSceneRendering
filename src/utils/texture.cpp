@@ -11,8 +11,8 @@ unsigned int loadTexture(const char* path, bool gammaCorrection)
     glGenTextures(1, &textureID);
 
     int width, height, nrComponents;
-    stbi_set_flip_vertically_on_load(true); // importante per OpenGL
-    
+    stbi_set_flip_vertically_on_load(true); 
+
     unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
     std::cout << "Loading texture: " << path << std::endl;
     if (data)
@@ -64,7 +64,7 @@ unsigned int loadTexture(const char* path, bool gammaCorrection)
 }
 
 // ----------------------------
-// HDR TEXTURE (per dopo)
+// HDR TEXTURE 
 // ----------------------------
 unsigned int loadHDRTexture(const char* path)
 {

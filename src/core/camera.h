@@ -1,3 +1,9 @@
+/*
+This system implement a free-fly FPS camera for navigating the 3D scene.
+Remember that in openGL the camera doesn't actually move
+but the entire world is transformed inversely trough the view matrix.
+*/
+
 #pragma once
 
 #include <glad/glad.h>
@@ -32,7 +38,7 @@ public:
     float MouseSensitivity;
     float Zoom;
 
-    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 3.0f),
+    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 15.0f),
            glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
            float yaw = YAW,
            float pitch = PITCH);

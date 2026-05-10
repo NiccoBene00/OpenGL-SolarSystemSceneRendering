@@ -1,12 +1,15 @@
+//This shader converts HDR colors into displayable monitor colors
+
 #version 330 core
-out vec4 FragColor;
+out vec4 FragColor; //final display color
 
 in vec2 TexCoords;
 
-uniform sampler2D scene;
+uniform sampler2D scene; //contains HDR framebuffer image
 
 void main()
 {
+    //laoad HDR color from framebuffer
     vec3 color = texture(scene, TexCoords).rgb;
 
     // tone mapping base

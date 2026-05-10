@@ -8,7 +8,11 @@
 unsigned int loadCubemap(std::vector<std::string> faces)
 {
     unsigned int textureID;
+
+    //allocate GPU texture object
     glGenTextures(1, &textureID);
+
+
     glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 
     int width, height, nrChannels;
@@ -22,6 +26,9 @@ unsigned int loadCubemap(std::vector<std::string> faces)
 
         if (data)
         {
+            //upload face to GPU, note that the target is GL_TEXTURE_CUBE_MAP_POSITIVE_X + i
+            //since the faces are ordered in the vector as right, left, top, bottom, front, back
+            //so auto-incrementing the target with i allows us to upload each face to the correct cubemap face
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
                 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 

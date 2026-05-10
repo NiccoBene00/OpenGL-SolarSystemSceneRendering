@@ -17,12 +17,14 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
     std::stringstream vShaderStream, fShaderStream;
 
+    //copies the content of the file into memory
     vShaderStream << vShaderFile.rdbuf();
     fShaderStream << fShaderFile.rdbuf();
 
     vShaderFile.close();
     fShaderFile.close();
 
+    //convert stream into string
     vertexCode = vShaderStream.str();
     fragmentCode = fShaderStream.str();
 
@@ -31,19 +33,26 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
     unsigned int vertex, fragment;
 
+    //create, send source code to GPU and compile vertex shader
     vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vCode, NULL);
     glCompileShader(vertex);
 
+    //same for fragment shader
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fCode, NULL);
     glCompileShader(fragment);
 
-    ID = glCreateProgram();
+    ID = glCreateProgram();//create GPU shader pipeline program
+
+    //combine verte and fragment shaders into one executable pipeline
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
+
+    //link the program, which makes it ready for use
     glLinkProgram(ID);
 
+    //delete the shaders as they're linked into our program now and no longer necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 }

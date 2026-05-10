@@ -1,8 +1,12 @@
-#version 330 core
-layout (location = 0) in vec3 aPos;
+//This shader renders planet orbital lines
 
-uniform mat4 view;
-uniform mat4 projection;
+#version 330 core
+
+//each orbit vertex is a point along a circular path
+layout (location = 0) in vec3 aPos; 
+
+uniform mat4 view; //folow camera movement
+uniform mat4 projection; //apply perspective
 
 void main()
 {

@@ -521,9 +521,6 @@ END OF OPENGL OVERVIEW
 const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
 
-//const unsigned int SCR_WIDTH = 1600;
-//const unsigned int SCR_HEIGHT = 900;
-
 // camera
 Camera camera;
 
@@ -644,13 +641,12 @@ int main()
     }
 
     //MOON DATA
-    float moonDistance = 1.3f;   
-    float moonScale    = 0.15f;  
+    float moonDistance = 1.5f;   
+    float moonScale    = 0.20f;  
     float moonOrbitSpeed = 2.0f; 
     float moonRotationSpeed = 2.0f;
 
     //SKYBOX TEXTURES
-    
     std::vector<std::string> faces = {
         "resources/textures/skybox/right8.png",
         "resources/textures/skybox/left8.png",
@@ -660,21 +656,20 @@ int main()
         "resources/textures/skybox/back8.png"
     };
     
-
     unsigned int cubemapTexture = loadCubemap(faces);
-    
     
 
     // ============================
     // HDR FRAMEBUFFER
     // ============================
+    //framebuffer := rendering destination (instead of default framebuffer which is the screen)
     unsigned int hdrFBO;
     glGenFramebuffers(1, &hdrFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);//now all rendering commands will write to this framebuffer instead of the default one (the screen)
 
-    // 2 color buffers
-    unsigned int colorBuffers[2];
-    glGenTextures(2, colorBuffers);
+    //color buffers
+    unsigned int colorBuffers[2]; //two differennt render textures: one for normal rendering, one for bright fragments only (for bloom)
+    glGenTextures(2, colorBuffers); //allcoate two GPU texture objects
 
     for (unsigned int i = 0; i < 2; i++)
     {
@@ -692,6 +687,8 @@ int main()
             GL_TEXTURE_2D,
             colorBuffers[i],
             0);
+            //so we have in color attachment 0 the normal rendered scene, and in color attachment 1 only the bright fragments 
+            //(using a brightness threshold in the shader)
     }
 
     // depth buffer
@@ -701,7 +698,7 @@ int main()
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, SCR_WIDTH, SCR_HEIGHT);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
 
-    // specifica che usiamo 2 color attachments
+    //specify which color attachments we'll use (of this framebuffer) for rendering
     unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
     glDrawBuffers(2, attachments);
 
@@ -713,6 +710,10 @@ int main()
     unsigned int quadVAO = 0;
     unsigned int quadVBO;
 
+
+    //the shader to process a texture basically render rectangle over screen
+    //this rectangle is a fullscreen quad
+    //indeed GPU renders triangles only and we know that two triangles can form a rectangle
     float quadVertices[] = {
         // positions   // texCoords
         -1.0f,  1.0f, 0.0f, 1.0f,
@@ -737,6 +738,7 @@ int main()
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
+    //we define a cube surrounding the scene, this will be our skybox
     float skyboxVertices[] = {
         -1.0f,  1.0f, -1.0f,
         -1.0f, -1.0f, -1.0f,
@@ -792,9 +794,8 @@ int main()
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-
-
     
+    //these two framebuffers will be used for the ping-pong blur step (gaussian blur) of the bloom effect
     unsigned int pingpongFBO[2];
     unsigned int pingpongColorbuffers[2];
 
@@ -851,12 +852,12 @@ int main()
         //=====================================
         //GUI controls
         //=====================================
-        ImGui::Begin("Solar System Controls");
+        ImGui::Begin("Controls");
 
         // simulation
         ImGui::Text("Simulation");
 
-        ImGui::SliderFloat("Time Scale", &timeScale, 0.0f, 20.0f);
+        ImGui::SliderFloat("Time", &timeScale, 0.0f, 20.0f);
 
         // bloom
         ImGui::Separator();
