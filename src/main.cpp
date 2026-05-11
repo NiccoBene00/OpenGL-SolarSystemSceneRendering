@@ -516,6 +516,7 @@ END OF OPENGL OVERVIEW
 #include "utils/cubemap.h"
 #include "rendering/planet.h"
 #include "rendering/orbit.h"
+#include "rendering/model.h"
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -609,6 +610,7 @@ int main()
     Shader finalShader("../shaders/quad.vert", "../shaders/bloom_final.frag");
     Shader skyboxShader("../shaders/skybox.vert", "../shaders/skybox.frag");
     Shader orbitShader("../shaders/orbit.vert", "../shaders/orbit.frag");
+    Shader modelShader("../shaders/model.vert", "../shaders/model.frag");
 
     Sphere sphere;
 
@@ -658,6 +660,7 @@ int main()
     
     unsigned int cubemapTexture = loadCubemap(faces);
     
+    Model spaceShuttle("resources/models/SpaceShuttle.obj");
 
     // ============================
     // HDR FRAMEBUFFER
@@ -1033,6 +1036,25 @@ int main()
             }
 
         }
+
+        //======================================================
+        //RENDER MODEL
+        //======================================================
+        
+        glm::mat4 satModel = glm::mat4(1.0f);
+
+        satModel = glm::translate(
+            satModel,
+            glm::vec3(15.0f, 2.0f, 0.0f));
+
+        satModel = glm::scale(
+            satModel,
+            glm::vec3(0.3f));
+
+        shader.setMat4("model", satModel);
+
+        spaceShuttle.Draw();
+
 
         // =====================================================
         // DRAW SKYBOX (INSIDE HDR PASS)
