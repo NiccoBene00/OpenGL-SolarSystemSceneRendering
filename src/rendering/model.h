@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 #include <vector>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -12,5 +12,6 @@ public:
 
 private:
     unsigned int VAO, VBO;
+    unsigned int diffuseTexture;
     int vertexCount;
 };

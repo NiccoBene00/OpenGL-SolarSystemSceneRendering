@@ -660,7 +660,7 @@ int main()
     
     unsigned int cubemapTexture = loadCubemap(faces);
     
-    Model spaceShuttle("resources/models/SpaceShuttle.obj");
+    Model asteroid("resources/models/asteroid/10464_Asteroid_v1_Iterations-2.obj");
 
     // ============================
     // HDR FRAMEBUFFER
@@ -1038,22 +1038,26 @@ int main()
         }
 
         //======================================================
-        //RENDER MODEL
+        //RENDER ASTEROIDS OBJECT
         //======================================================
         
-        glm::mat4 satModel = glm::mat4(1.0f);
+        glm::mat4 meteorModel = glm::mat4(1.0f);
 
-        satModel = glm::translate(
-            satModel,
-            glm::vec3(15.0f, 2.0f, 0.0f));
+        meteorModel = glm::translate(
+            meteorModel,
+            glm::vec3(20.0f, 3.0f, 0.0f));
 
-        satModel = glm::scale(
-            satModel,
-            glm::vec3(0.3f));
+        meteorModel = glm::scale(
+            meteorModel,
+            glm::vec3(0.0005f));
 
-        shader.setMat4("model", satModel);
+        shader.setMat4("model", meteorModel);
 
-        spaceShuttle.Draw();
+        shader.setInt("isEmissive", 0);
+        shader.setInt("hasNightMap", 0);
+        shader.setInt("useReflection", 0);
+
+        asteroid.Draw();
 
 
         // =====================================================

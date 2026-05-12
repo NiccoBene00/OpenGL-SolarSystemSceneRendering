@@ -1,5 +1,5 @@
 
-#include "cubemap.h"
+#include "utils/cubemap.h"
 #include "stb_image.h"
 
 #include <glad/glad.h>

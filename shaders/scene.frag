@@ -26,6 +26,7 @@ uniform vec3 viewPos;
 uniform int isEmissive;
 uniform int hasNightMap;
 
+
 void main() //run once per pixel
 {
     vec3 color = texture(diffuseMap, TexCoords).rgb;
@@ -85,7 +86,6 @@ void main() //run once per pixel
         // mix between planet color and reflection
         result = mix(result, reflection, 0.13);
     }
-
 
     FragColor = vec4(result, 1.0);
 
