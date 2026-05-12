@@ -543,6 +543,17 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
 
+struct AsteroidInstance
+{
+    glm::vec3 position;
+
+    float scale;
+
+    float rotationSpeed;
+
+    glm::vec3 rotationAxis;
+};
+
 
 int main()
 {
@@ -617,6 +628,9 @@ int main()
     //PLANETS DATA
     std::vector<Planet> planets;
 
+    //Asteroid
+    std::vector<AsteroidInstance> asteroids;
+
     //TEXTURE LOADING
     unsigned int earthTexture = loadTexture("resources/textures/earth.jpg");
     unsigned int sunTexture = loadTexture("resources/textures/sun.jpg");
@@ -661,6 +675,38 @@ int main()
     unsigned int cubemapTexture = loadCubemap(faces);
     
     Model asteroid("resources/models/asteroid/10464_Asteroid_v1_Iterations-2.obj");
+
+    srand((unsigned int)time(0));
+
+    for (int i = 0; i < 40; i++)
+    {
+        AsteroidInstance asteroidData;
+
+        // random space around the Sun
+        float x = ((rand() % 200) - 100);
+        float y = ((rand() % 80) - 40);
+        float z = ((rand() % 200) - 100);
+
+        asteroidData.position = glm::vec3(x, y, z);
+
+        // random scale
+        asteroidData.scale =
+            0.0004f +
+            static_cast<float>(rand()) / RAND_MAX * 0.0008f;
+
+        // rotation
+        asteroidData.rotationSpeed =
+            0.2f +
+            static_cast<float>(rand()) / RAND_MAX * 2.0f;
+
+        asteroidData.rotationAxis = glm::normalize(glm::vec3(
+            rand() % 10,
+            rand() % 10,
+            rand() % 10
+        ));
+
+        asteroids.push_back(asteroidData);
+    }
 
     // ============================
     // HDR FRAMEBUFFER
@@ -1036,28 +1082,37 @@ int main()
             }
 
         }
-
-        //======================================================
-        //RENDER ASTEROIDS OBJECT
-        //======================================================
         
-        glm::mat4 meteorModel = glm::mat4(1.0f);
+        // =====================================================
+        // ASTEROID FIELD
+        // =====================================================
+        float time = glfwGetTime() * timeScale;
 
-        meteorModel = glm::translate(
-            meteorModel,
-            glm::vec3(20.0f, 3.0f, 0.0f));
+        for (auto& a : asteroids)
+        {
+            glm::mat4 model = glm::mat4(1.0f);
 
-        meteorModel = glm::scale(
-            meteorModel,
-            glm::vec3(0.0005f));
+            model = glm::translate(model, a.position);
 
-        shader.setMat4("model", meteorModel);
+            model = glm::rotate(
+                model,
+                time * a.rotationSpeed,
+                a.rotationAxis
+            );
 
-        shader.setInt("isEmissive", 0);
-        shader.setInt("hasNightMap", 0);
-        shader.setInt("useReflection", 0);
+            model = glm::scale(
+                model,
+                glm::vec3(a.scale)
+            );
 
-        asteroid.Draw();
+            shader.setMat4("model", model);
+
+            shader.setInt("isEmissive", 0);
+            shader.setInt("hasNightMap", 0);
+            shader.setInt("useReflection", 0);
+
+            asteroid.Draw();
+        }
 
 
         // =====================================================
