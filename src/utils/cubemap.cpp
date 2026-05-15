@@ -7,6 +7,9 @@
 
 unsigned int loadCubemap(std::vector<std::string> faces)
 {
+    std::cout << "==============================\n";
+    std::cout << "CUBEMAP TEXTURES: " << std::endl;
+
     unsigned int textureID;
 
     //allocate GPU texture object
@@ -47,6 +50,8 @@ unsigned int loadCubemap(std::vector<std::string> faces)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    std::cout << "==============================\n";
 
     return textureID;
 }

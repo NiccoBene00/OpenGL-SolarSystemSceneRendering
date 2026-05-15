@@ -556,7 +556,7 @@ struct AsteroidInstance
 
 
 int main()
-{
+{   
 
     // ---------------------------
     // INIT GLFW
@@ -593,6 +593,13 @@ int main()
         std::cout << "Failed to initialize GLAD\n";
         return -1;
     }
+
+    std::cout << "-------------------------------------\n";
+    std::cout << "OpenGL Vendor: " << glGetString(GL_VENDOR) << std::endl;
+    std::cout << "GPU renderer: " << glGetString(GL_RENDERER) << std::endl;
+    std::cout << "OpenGL version + driver build: " << glGetString(GL_VERSION) << std::endl;
+    std::cout << "-------------------------------------\n";
+    std::cout << "\n";
 
 
     //GUI SETUP

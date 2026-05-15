@@ -27,6 +27,9 @@ Model::Model(const char* path)
 
     std::string baseDir =
         objPath.substr(0, objPath.find_last_of("/\\") + 1);
+    
+    std::cout << "==============================\n";
+    std::cout << "OBJ files: " << objPath << std::endl;
 
     std::cout << "Base dir: "
           << baseDir << std::endl;
@@ -120,7 +123,7 @@ Model::Model(const char* path)
 
             diffuseTexture = loadTexture(texPath.c_str());
 
-            std::cout << "Loaded diffuse texture: "
+            std::cout << "Loaded diffuse texture obj: "
                       << texPath << std::endl;
         }
     }
@@ -175,6 +178,8 @@ Model::Model(const char* path)
         sizeof(Vertex),
         (void*)(6 * sizeof(float))
     );
+
+    std::cout << "===============================\n";
 }
 
 void Model::Draw()

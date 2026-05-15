@@ -7,6 +7,9 @@
 
 unsigned int loadTexture(const char* path, bool gammaCorrection)
 {
+
+    std::cout << "==============================\n";
+    std::cout << "TEXTURES: " << path << std::endl;
     unsigned int textureID;
     glGenTextures(1, &textureID);
 
@@ -59,6 +62,8 @@ unsigned int loadTexture(const char* path, bool gammaCorrection)
         std::cout << "FAILED to load texture at path: " << path << std::endl;
         stbi_image_free(data);
     }
+
+    std::cout << "==============================\n";
 
     return textureID;
 }
