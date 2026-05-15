@@ -1,24 +1,31 @@
+
+
 cmake_minimum_required(VERSION 3.10)
 project(SolarSystem)
 
 set(CMAKE_CXX_STANDARD 17)
 
-#Include directories
+include(FetchContent)
+
+FetchContent_Declare(
+    glfw
+    GIT_REPOSITORY https://github.com/glfw/glfw.git
+    GIT_TAG 3.4
+)
+
+FetchContent_MakeAvailable(glfw)
+
 include_directories(
     include
     external/imgui
-    external/imgui/backends)
+    external/imgui/backends
+)
 
-#local library directories
-link_directories(lib)
-
-#source files
 file(GLOB_RECURSE SRC_FILES
     src/*.cpp
     src/*.c
 )
 
-#source file for imgui
 set(IMGUI_SRC
     external/imgui/imgui.cpp
     external/imgui/imgui_draw.cpp
@@ -28,16 +35,27 @@ set(IMGUI_SRC
     external/imgui/backends/imgui_impl_opengl3.cpp
 )
 
-#add resources in the build directory
-file(COPY resources DESTINATION ${CMAKE_BINARY_DIR})
 
-#create executable
-add_executable(SolarSystem 
-        ${SRC_FILES}
-        ${IMGUI_SRC})
+
+add_executable(SolarSystem
+    ${SRC_FILES}
+    ${IMGUI_SRC}
+)
+
+add_custom_command(TARGET SolarSystem POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/resources
+    $<TARGET_FILE_DIR:SolarSystem>/resources
+)
+
+add_custom_command(TARGET SolarSystem POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/shaders
+    $<TARGET_FILE_DIR:SolarSystem>/shaders
+)
 
 target_link_libraries(SolarSystem
-    glfw3
+    glfw
     opengl32
     gdi32
 )

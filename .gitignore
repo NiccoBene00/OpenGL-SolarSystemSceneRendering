@@ -1,0 +1,27 @@
+# Build
+build/
+out/
+
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+*.suo
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+
+# Compiled files
+*.obj
+*.exe
+*.ilk
+*.pdb
+*.lib
+*.dll
+
+# Generated
+Debug/
+Release/
+x64/
+x86/

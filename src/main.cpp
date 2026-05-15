@@ -615,13 +615,13 @@ int main()
     // ---------------------------
     // SHADER 
     // ---------------------------
-    Shader shader("../shaders/scene.vert", "../shaders/scene.frag");
-    Shader screenShader("../shaders/quad.vert", "../shaders/quad.frag");
-    Shader blurShader("../shaders/blur.vert", "../shaders/blur.frag");
-    Shader finalShader("../shaders/quad.vert", "../shaders/bloom_final.frag");
-    Shader skyboxShader("../shaders/skybox.vert", "../shaders/skybox.frag");
-    Shader orbitShader("../shaders/orbit.vert", "../shaders/orbit.frag");
-    Shader modelShader("../shaders/model.vert", "../shaders/model.frag");
+    Shader shader("shaders/scene.vert", "shaders/scene.frag");
+    Shader screenShader("shaders/quad.vert", "shaders/quad.frag");
+    Shader blurShader("shaders/blur.vert", "shaders/blur.frag");
+    Shader finalShader("shaders/quad.vert", "shaders/bloom_final.frag");
+    Shader skyboxShader("shaders/skybox.vert", "shaders/skybox.frag");
+    Shader orbitShader("shaders/orbit.vert", "shaders/orbit.frag");
+    Shader modelShader("shaders/model.vert", "shaders/model.frag");
 
     Sphere sphere;
 
@@ -678,7 +678,7 @@ int main()
 
     srand((unsigned int)time(0));
 
-    for (int i = 0; i < 40; i++)
+    for (int i = 0; i < 100; i++)
     {
         AsteroidInstance asteroidData;
 
