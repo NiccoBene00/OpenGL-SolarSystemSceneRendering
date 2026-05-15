@@ -54,8 +54,19 @@ add_custom_command(TARGET SolarSystem POST_BUILD
     $<TARGET_FILE_DIR:SolarSystem>/shaders
 )
 
+find_package(OpenGL REQUIRED)
+
 target_link_libraries(SolarSystem
     glfw
-    opengl32
-    gdi32
+    OpenGL::GL
 )
+
+# Aggiunge librerie specifiche solo se sei su Windows
+if(WIN32)
+    target_link_libraries(SolarSystem gdi32)
+endif()
+
+# Aggiunge i Framework necessari se sei su macOS
+if(APPLE)
+    target_link_libraries(SolarSystem "-framework Cocoa" "-framework IOKit" "-framework CoreVideo")
+endif()
