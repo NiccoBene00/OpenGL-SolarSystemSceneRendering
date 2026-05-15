@@ -169,7 +169,7 @@ The project uses the following libraries:
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/NiccoBene00/SolarSystem-openGL.git
+git clone https://github.com/NiccoBene00/OpenGL-SolarSystemSceneRendering.git
 cd SolarSystem
 ```
 
