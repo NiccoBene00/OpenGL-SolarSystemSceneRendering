@@ -33,7 +33,7 @@ An OpenGL 3D project that simulates the Solar System with a strong focus on **HD
 ### Multiple Models
 - multiple sphere instances
 - different textures
-- separate moon
+- rendering asteroids (.obj)
 
 ### Cubemap
 - real cubemap skybox
@@ -53,7 +53,7 @@ An OpenGL 3D project that simulates the Solar System with a strong focus on **HD
 
 ### Free Navigation
 - FPS camera
-- moule look
+- mouse look
 - WASD system
 - zoom
 
@@ -69,6 +69,16 @@ An OpenGL 3D project that simulates the Solar System with a strong focus on **HD
 
 ---
 
+## Controls
+
+- WASD --> Move camera
+- Mouse --> Look around
+- Scroll --> Zoom
+- TAB --> Toggle mouse/UI mode
+- ESC --> Exit
+
+---
+
 ## Project Tree Folder
 ```
 SolarSystem/
@@ -78,14 +88,19 @@ SolarSystem/
 │   ├── GLFW/
 │   ├── glm/
 │   ├── KHR/
+│   ├── tinyobjectloader/
+│        ├── tiny_obj_loader.h
+|   ├── utils/
+|        ├── texture.h
+|        ├── cubemap.h
 │   └── stb_image.h
 │
-├── lib/
-│   └── libglfw3.a
 │
 ├── resources/
 │   ├── textures/
 │       ├── skybox/
+│   ├── models/
+│       ├── asteroid/
 │   └── hdr/                
 │
 ├── shaders/
@@ -118,14 +133,14 @@ SolarSystem/
 │   │   ├── planet.h / planet.cpp
 │
 │   ├── utils/              
-│   │   ├── texture.h / texture.cpp
-│   │   ├── cubemap.h / cubemap.cpp
+│   │   ├── texture.cpp
+│   │   ├── cubemap.cpp
 |
 │   ├── external/
 │   │   ├── imgui
 |
+├── .gitignore   
 ├── CMakeLists.txt          
-└── glfw3.dll
 └── README.md
 ```
 
@@ -145,7 +160,7 @@ The project uses the following libraries:
 
 ## Requirements
 
-- C++17 compatible compiler (e.g. `g++`, `clang`, MSVC)
+- Visual Studio 2022 or compatible C++17 compiler (e.g. `g++`, `clang`, MSVC)
 - CMake ≥ 3.10
 - OpenGL 3.3+
 
@@ -154,7 +169,7 @@ The project uses the following libraries:
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/NiccoBene00/SolarSystem.git
+git clone https://github.com/NiccoBene00/SolarSystem-openGL.git
 cd SolarSystem
 ```
 
@@ -178,7 +193,14 @@ Compile
 cmake --build .
 ```
 
-Run the project
+After the build process completes, the executable will be generated inside the build (or for instance in bulild/Debug/ if you use Visual Studio Community 2022) directory.
 ```bash
 ./SolarSystem.exe
 ```
+
+---
+
+## Notes
+
+*Rendering quality and visual appearance may vary depending on GPU drivers, OpenGL implementation, monitor settings, and hardware acceleration support.*
+
