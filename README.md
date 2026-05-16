@@ -4,6 +4,9 @@
 
 An OpenGL 3D project that simulates the Solar System with a strong focus on **HDR rendering and bloom effects**.  
 
+### Solar System Overview
+![Overview](screenshots/overview.png)
+
 ---
 
 ### Core Rendering
