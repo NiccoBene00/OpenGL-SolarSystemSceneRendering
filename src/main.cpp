@@ -84,7 +84,7 @@ Example:
 3. SHADERS
 --------------------------------------------------------------------------------
 
-Shaders are small GPU programs written in GLSL.
+Shaders are small GPU programs written in GLSL (OpenGL Shading Language - similar to C).
 They run for each vertex/fragment and compute transformations and colors.
 
 The rendering pipeline executes shaders directly on the GPU.
@@ -212,10 +212,12 @@ The light position is passed as a uniform:
 
 Each planet computes:
 
-- diffuse shading
-- specular reflections
-- shadowed side
-- night illumination
+- diffuse shading --> I=max(dot(N, L), 0.0) where L is the light direction towards the Sun and N is the normal
+- specular reflections (where I would see the Sun reflected) --> I=pow(max(dot(R, V), 0.0), shininess) where R 
+                                                                 is the reflection vector and V is the view direction
+                                                                 and n is the shininess factor
+- shadowed side --> diff = max(dot(N, L), 0.0) will be zero on the shadowed side, so only ambient light contributes
+- night illumination (diff=1 day side, diff=0 night side, so we can blend the night texture using this factor)
 
 The Earth uses a special night texture:
 
@@ -273,14 +275,67 @@ This enables post-processing effects.
 --------------------------------------------------------------------------------
 
 Bloom simulates light bleeding from extremely bright areas.
+It needs two different framebuffers since it is a post-processing effect.
 
-Pipeline:
+Logic Scheme:
+
+Render Scene
+      ↓
+HDR FBO
+│
+├─ Attachment 0 = scena
+└─ Attachment 1 = bright pixels
+
+      ↓
+Ping-Pong Blur
+(Ping FBO + Pong FBO)
+
+      ↓
+Blurred Bright Texture
+
+      ↓
+Final Composition
+
+FinalImage =
+Scene +
+BlurredBright
+
+
+
+Pipeline Details:
 
 STEP 1:
-    render scene into HDR framebuffer
-
+    render scene into HDR framebuffer (first framebuffer).
+    Color Attachment 0 -> normal scene
+    
 STEP 2:
-    extract bright fragments
+    Color Attachment 1 -> bright fragments
+
+Note: during the rendering of the scene the fragment shader writes contemporary to both color attachments.
+
+Now we need to an additional framebuffers to blur the bright fragments.
+We need two framebuffers (Ping FBO, Pong FBO) since we have to read from a texture and write to another texture to implement what we callPing-Pong Blur.
+
+Bright Texture       
+      ↓
+Horizontal Blur
+      ↓
+Ping FBO
+
+
+Ping FBO
+      ↓
+Vertical Blur
+      ↓
+Pong FBO
+
+
+Pong FBO
+      ↓
+Horizontal Blur
+      ↓
+Ping FBO
+
 
 STEP 3:
     blur bright texture using Gaussian Blur
@@ -288,24 +343,17 @@ STEP 3:
 STEP 4:
     combine blurred image with original scene
 
-This project uses Ping-Pong Blur:
-
-- two framebuffers
-- alternating horizontal/vertical blur
-
-This creates smooth glow around:
-
-- Sun
-- emissive objects
-- Earth night lights
 
 --------------------------------------------------------------------------------
 12. GAUSSIAN BLUR
 --------------------------------------------------------------------------------
 
-Blur is implemented as a post-processing shader.
+Blur is implemented as a post-processing shader. The Gaussian blur weights
+neighboring pixels using a bell-shaped curve. The center pixel has the highest weight, 
+and the weights decrease for pixels farther away.
 
-The shader samples neighboring pixels using weighted offsets.
+Tha shader is separable--> instead of applying an heavy NxN 2D kernel in one pass, we can apply a
+1D kernel in two passes:
 
 Horizontal pass:
     blur across X axis
@@ -358,16 +406,17 @@ Reflection is implemented using environment mapping.
 
 The fragment shader computes:
 
-- incident vector
-- reflection vector
+- incident vector (vector from camera to fragment that arrives at the surface)
+- reflection vector respect to the normal of the surface
 
 using:
 
-    reflect(I, N)
+    reflect(I, N) = I - 2.0 * dot(N, I) * N
 
 The reflection vector samples the cubemap texture.
+In words, we look in the direction of the reflection vector to see what color is there in the environment.
 
-This creates fake real-time reflections on planets.
+This creates fake real-time reflections on planet Earth.
 
 --------------------------------------------------------------------------------
 16. CAMERA SYSTEM
