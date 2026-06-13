@@ -10,11 +10,11 @@ An OpenGL 3D project that simulates the Solar System with a strong focus on **HD
 ### Bloom
 ![Overview](screenshots/bloom.png)
 
-### Earth's Darkside and Daylight
+### Darkside and Daylight
 ![Overview](screenshots/darksidedaylight.png)
 
 ### Earth's nightlights
-![Overview](screenshots/nighlights.png)
+![Overview](screenshots/nightlights.png)
 
 ### Asteroids field
 ![Overview](screenshots/asteroids.png)
