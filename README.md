@@ -7,6 +7,18 @@ An OpenGL 3D project that simulates the Solar System with a strong focus on **HD
 ### Solar System Overview
 ![Overview](screenshots/overview.png)
 
+### Bloom
+![Overview](screenshots/bloom.png)
+
+### Earth's Darkside and Daylight
+![Overview](screenshots/darksidedaylight.png)
+
+### Earth's nightlights
+![Overview](screenshots/nighlights.png)
+
+### Asteroids field
+![Overview](screenshots/asteroids.png)
+
 ---
 
 ### Core Rendering
@@ -130,7 +142,7 @@ SolarSystem/
 │   │   ├── framebuffer.h / framebuffer.cpp
 │
 │   ├── rendering/          
-│   │   ├── sphere.h / sphere.cpp
+│   │   ├── model.h / model.cpp
 │   │   ├── render.h / render.cpp
 │   │   ├── orbit.h / orbit.cpp
 │   │   ├── planet.h / planet.cpp
@@ -158,6 +170,7 @@ The project uses the following libraries:
 - **GLM** -> mathematics (vectors, matrices)  
 - **stb_image** -> texture loading
 - **imgui** -> ImGuI rendering
+- **tiny_obj_loader** -> .obj rendering
   
 ---
 
@@ -196,7 +209,7 @@ Compile
 cmake --build .
 ```
 
-After the build process completes, the executable will be generated inside the build (or for instance in bulild/Debug/ if you use Visual Studio Community 2022) directory.
+After the build process completes, the executable will be generated inside the build (or for instance in build/Debug/ if you use Visual Studio Community 2022) directory.
 ```bash
 ./SolarSystem.exe
 ```
