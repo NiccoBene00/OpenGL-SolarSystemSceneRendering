@@ -1,5 +1,7 @@
 # Real-Time Solar System with HDR Bloom (OpenGL 3.3, C++)
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 A real-time 3D simulation of the Solar System built from scratch with **OpenGL 3.3 Core Profile**. The main technical focus is a complete **HDR rendering and bloom post-processing pipeline** (multi-render-target framebuffer, bright-pass extraction, separable Gaussian blur with ping-pong framebuffers, tone mapping), on top of a scene with textured planets, an asteroid field, a cubemap skybox, environment-mapped reflections and a free-flying camera.
 
 > **Context.** 3D Graphics course project, Polytech, Université Libre de Bruxelles (June 2026). Authors: Niccolò Benedetto and Paolo Alberto Bordis. Instructors: Prof. Daniele Bonatto and Eline Soetens.
@@ -122,7 +124,6 @@ Run the executable from the build directory (for example `build/Debug/` with Vis
 
 ## Credits and licenses
 
-Rendering and application code: Niccolò Benedetto and Paolo Alberto Bordis. Third-party libraries keep their own licenses. The star skybox comes from [OpenGameArt](https://opengameart.org/).
 Textures and 3D models in `resources/` come from third-party public sources and
 are not covered by the MIT license; they keep their original licenses. The star
 skybox comes from [OpenGameArt](https://opengameart.org/). Third-party libraries
