@@ -123,7 +123,10 @@ Run the executable from the build directory (for example `build/Debug/` with Vis
 ## Credits and licenses
 
 Rendering and application code: Niccolò Benedetto and Paolo Alberto Bordis. Third-party libraries keep their own licenses. The star skybox comes from [OpenGameArt](https://opengameart.org/).
-<!-- TODO: add the source and license of the planet textures and of the asteroid model, and add a LICENSE file (for example MIT for your own code). -->
+Textures and 3D models in `resources/` come from third-party public sources and
+are not covered by the MIT license; they keep their original licenses. The star
+skybox comes from [OpenGameArt](https://opengameart.org/). Third-party libraries
+(GLFW, GLAD, GLM, Dear ImGui, stb_image, TinyObjLoader) keep their own licenses.
 
 *Rendering quality and visual appearance may vary depending on GPU drivers, OpenGL implementation and monitor settings.*
 
