@@ -3,7 +3,7 @@
 A real-time 3D simulation of the Solar System built from scratch with **OpenGL 3.3 Core Profile**. The main technical focus is a complete **HDR rendering and bloom post-processing pipeline** (multi-render-target framebuffer, bright-pass extraction, separable Gaussian blur with ping-pong framebuffers, tone mapping), on top of a scene with textured planets, an asteroid field, a cubemap skybox, environment-mapped reflections and a free-flying camera.
 
 > **Context.** 3D Graphics course project, Polytech, Université Libre de Bruxelles (June 2026). Authors: Niccolò Benedetto and Paolo Alberto Bordis. Instructors: Prof. Daniele Bonatto and Eline Soetens.
-> <!-- TODO: add one line about your own share of the work, e.g. "I implemented the HDR/bloom pipeline and the camera system; my teammate implemented ...". -->
+> 
 
 <p align="center"><img src="screenshots/overview.png" width="800" alt="Solar System overview"></p>
 
@@ -87,8 +87,6 @@ Run the executable from the build directory (for example `build/Debug/` with Vis
 ```bash
 ./SolarSystem.exe
 ```
-
-<!-- TODO: if the executable needs to be started from a specific folder to find the shaders and resources, add one line saying so. -->
 
 ## Project structure
 
